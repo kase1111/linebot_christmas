@@ -23,30 +23,76 @@ $channelSecret = 'c70215b39f1d8d6919dee4819b40a2f7';
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 foreach ($client->parseEvents() as $event) {
-    switch ($event['type']) {
-        case 'message':
-            $message = $event['message'];
-            switch ($message['type']) {
-                case 'text':
-                    $client->replyMessage(array(
-                        'replyToken' => $event['replyToken'],
-                        'messages' => array(
+    if ($event['type'] == 'message') {
+        $message = $event['message'];
+        switch ($message['type']) {
+            case 'location':
+                $lat = $message['latitude'];
+                $lon = $message['longitude'];
+                $uri = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
+                $hotkey = '2a60a96fb9488110';
+                $count = 5;
+                $range = 3;
+                $url = $uri . '?key=' . $hotkey . '&latitude=' . $lat . '&longitude=' . $lon . '&range=' . $range . '&count' . $count;
+                $conn = curl_init();
+                curl_setopt($conn, CURLOPT_URL, $url);
+                curl_setopt($conn, CURLOPT_RETURNTRANSFER, true);
+                $res = curl_exec($conn);
+                $obj = json_decode($res);
+                curl_close($conn);
+                $columns = array();
+                foreach ($obj->shop as $restaurant) {
+                    $columns[] = array(
+                        'title' => $restaurant->name,
+                        'text' => $restaurant->address,
+                        'actions' => array(
                             array(
-                                'type' => 'text',
-                                'text' => $message['text']
+                                'type' => 'uri',
+                                'label' => '詳細を見る',
+                                'uri' => $restaurant->urls,
                             )
                         )
-                    ));
+                    );
+                }
+                if ($columns !== null) {
+                    $messages = [
+                        [
+                            'type' => 'template',
+                            'altText' => '周辺のラーメン屋情報',
+                            'template' => [
+                                'type' => 'carousel',
+                                'columns' => [
+                                    [
+                                        'title' => $columns[0][title],
+                                        'text' => $columns[0][text],
+                                        'actions' => [
+                                            [
+                                                'type' => 'uri',
+                                                'label' => 'ホットペッパーサイトへ',
+                                                'uri' => $columns[0]['actions'][0]['uri'],
+                                            ]
+                                        ]
+                                    ],
+                                ]
+                            ]
+                        ]
+                    ];
+                    replyMessage($client, $event['replyToken'], $messages);
                     break;
-                default:
-                    error_log("Unsupporeted message type: " . $message['type']);
-                    break;
+                } else {
+                        $messages = [
+                            [
+                                'type' => 'text',
+                                'text' => '近くにないです'
+                            ]
+                        ];
+                        replyMessage($client, $event['replyToken'], $messages);
+                        break;
+                    }
+                }
+        } else {
+                error_log('Unsupported event type:' . $event['type']);
+                break;
             }
-            break;
-        default:
-            error_log("Unsupporeted event type: " . $event['type']);
-            break;
-    }
-};
-
+        };
 ?>
