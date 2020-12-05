@@ -51,20 +51,17 @@ foreach ($client->parseEvents() as $event) {
                 // ぐるなびapiURL
                 $uri = 'https://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
                 // ぐるなびアクセスキー
-                $gnaviaccesskey = '2a60a96fb9488110';
-                // ラーメン屋さんを意味するぐるなびのコード(小業態マスタ取得APIをコールして調査)
-                // つけ麺屋さんを意味するぐるなびのコード(小業態マスタ取得APIをコールして調査)
-                // 3件抽出
+                $accesskey = '2a60a96fb9488110';
                 //範囲
                 $range = 3;
                 //URL組み立て
-                $url  = $uri . '?key=' . $gnaviaccesskey . '&lat=' . $lat . '&lng=' . $lng . '&range=' . $range;
-                //ぐるなびapiの情報取得
+                $url  = $uri . '?key=' . $accesskey . '&lat=' . $lat . '&lng=' . $lng . '&range=' . $range;
+                //apiの情報取得
                 $conn = curl_init();
                 curl_setopt($conn, CURLOPT_URL, $url);
                 curl_setopt($conn, CURLOPT_RETURNTRANSFER, true);
                 $res = curl_exec($conn);
-                $results = json_decode($res);
+                $results = simplexml_load_string($res);
                 curl_close($conn);
                 // 店舗情報を取得
                 $columns = array();
@@ -85,7 +82,7 @@ foreach ($client->parseEvents() as $event) {
                     $messages = [
                         [
                             'type' => 'text',
-                            'text' => $results->shop[0],
+                            'text' => $results->shop->name,
                         ]
                     ];
                     replyMessage($client, $event['replyToken'], $messages);
