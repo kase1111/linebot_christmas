@@ -22,68 +22,31 @@ $channelAccessToken = 'Lpm434bCKVMXwPrWzzXBwlYs9RCFtSVREK4NOCk0MgcJ+yH2dYr0CjGYb
 $channelSecret = 'c70215b39f1d8d6919dee4819b40a2f7';
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
-function replyMessage($client, $reply_token, $messages) {
-    return $client->replyMessage([
-        'replyToken' => $reply_token,
-        'messages' => $messages,
-    ])
-}
 foreach ($client->parseEvents() as $event) {
-    if ($event['type'] == 'message') {
-        $message = $event['message'];
+    switch ($event['type']) {
+        case 'message':
+            $message = $event['message'];
             switch ($message['type']) {
-                case 'location':
-                    $lat = $message['latitude'];
-                    $lon = $message['longitude'];
-                    $uri = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
-                    $hotpepperaccesskey = '2a60a96fb9488110';
-                    $count = 5;
-                    $range = 3;
-                    $url = $uri . '?key=' . $hotpepperaccesskey . '&latitude=' . $lat . '&longitude=' . $lon . '&range=' . $range . '&count' . $count;
-                    $conn = curl_init();
-                    curl_setopt($conn, CURLOPT_URL, $url);
-                    curl_setopt($conn, CURLOPT_RETURNTRANSFER, true);
-                    $res = curl_exec($conn);
-                    $obj = json_decode($res);
-                    curl_close($conn);
-                    $columns = array();
-                    foreach ($obj->shop as $restaurant) {
-                        $columns[] = array(
-                            'title' => $restaurant->name,
-                            'text' => $restaurant->address,
-                        )
-                    }
-                    if ($columns !== null) {
-                        $messages = [
-                            [
-                                'type' => 'template',
-                                'altText' => '周辺のラーメン屋情報',
-                                'template' => [
-                                    'type' => 'carousel',
-                                    'columns' => [
-                                        [
-                                            'title' => $columns[0][title],
-                                            'text' => $columns[0][text],
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ];
-                        replyMessage($client, $event['replyToken'], $messages);
-                        break;
-                    } else {
-                        $messages = [
-                            [
+                case 'text':
+                    $client->replyMessage(array(
+                        'replyToken' => $event['replyToken'],
+                        'messages' => array(
+                            array(
                                 'type' => 'text',
-                                'text' => '近くにないです'
-                            ]
-                        ];
-                        replyMessage($client, $event['replyToken'], $messages);
-                        break;
-                    }
-                }
-    } else {
-        error_log('Unsupported event type:' . $event['type']);
-        break;
+                                'text' => $message['text']
+                            )
+                        )
+                    ));
+                    break;
+                default:
+                    error_log("Unsupporeted message type: " . $message['type']);
+                    break;
+            }
+            break;
+        default:
+            error_log("Unsupporeted event type: " . $event['type']);
+            break;
     }
 };
+
+?>
