@@ -47,21 +47,18 @@ foreach ($client->parseEvents() as $event) {
             case 'location':
                 // 受信した位置情報からの情報
                 $lat = $message['latitude'];
-                $lon = $message['longitude'];
+                $lng = $message['longitude'];
                 // ぐるなびapiURL
-                $uri = 'https://api.gnavi.co.jp/RestSearchAPI/v3/';
+                $uri = 'https://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
                 // ぐるなびアクセスキー
-                $gnaviaccesskey = '4c74ca54d51c346f418cf887746bbeab';
+                $gnaviaccesskey = '2a60a96fb9488110';
                 // ラーメン屋さんを意味するぐるなびのコード(小業態マスタ取得APIをコールして調査)
-                $category_s1 = 'RSFST08008';
                 // つけ麺屋さんを意味するぐるなびのコード(小業態マスタ取得APIをコールして調査)
-                $category_s2 = 'RSFST08008';
                 // 3件抽出
-                $hit_per_page = 3;
                 //範囲
                 $range = 3;
                 //URL組み立て
-                $url  = $uri . '?keyid=' . $gnaviaccesskey . '&latitude=' . $lat . '&longitude=' . $lon . '&range=' . $range . '&category_s=' . $category_s1 .'&category_s=' . $category_s2 . '&hit_per_page=' . $hit_per_page ;
+                $url  = $uri . '?key=' . $gnaviaccesskey . '&lat=' . $lat . '&lng=' . $lng . '&range=' . $range;
                 //ぐるなびapiの情報取得
                 $conn = curl_init();
                 curl_setopt($conn, CURLOPT_URL, $url);
@@ -71,16 +68,16 @@ foreach ($client->parseEvents() as $event) {
                 curl_close($conn);
                 // 店舗情報を取得
                 $columns = array();
-                foreach ($obj->rest as $restaurant) {
+                foreach ($obj->shop as $restaurant) {
                     $columns[] = array(
-                        'thumbnailImageUrl' => $restaurant->image_url->shop_image1,
+                        'thumbnailImageUrl' => $restaurant->logo_image,
                         'title' => $restaurant->name,
                         'text' => $restaurant->address,
                         'actions' => array(
                             array(
                                 'type' => 'uri',
                                 'label' => '詳細を見る',
-                                'uri' => $restaurant->url
+                                'uri' => $restaurant->urls
                             )
                         )
                     );
