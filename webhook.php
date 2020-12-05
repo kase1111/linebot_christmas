@@ -22,6 +22,12 @@ $channelAccessToken = 'Lpm434bCKVMXwPrWzzXBwlYs9RCFtSVREK4NOCk0MgcJ+yH2dYr0CjGYb
 $channelSecret = 'c70215b39f1d8d6919dee4819b40a2f7';
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
+function replyMessage($client, $reply_token, $messages) {
+    return $client->replyMessage([
+        'replyToken' => $reply_token,
+        'messages' => $messages
+    ]);
+}
 foreach ($client->parseEvents() as $event) {
     if ($event['type'] == 'message') {
         $message = $event['message'];
@@ -43,6 +49,7 @@ foreach ($client->parseEvents() as $event) {
                 $columns = array();
                 foreach ($obj->shop as $restaurant) {
                     $columns[] = array(
+                        'thumbnailImageUrl' => $restaurant->logo_image,
                         'title' => $restaurant->name,
                         'text' => $restaurant->address,
                         'actions' => array(
@@ -63,6 +70,7 @@ foreach ($client->parseEvents() as $event) {
                                 'type' => 'carousel',
                                 'columns' => [
                                     [
+                                        'imageBackgroundColor' => '#FFFFFF',
                                         'title' => $columns[0][title],
                                         'text' => $columns[0][text],
                                         'actions' => [
@@ -80,19 +88,19 @@ foreach ($client->parseEvents() as $event) {
                     replyMessage($client, $event['replyToken'], $messages);
                     break;
                 } else {
-                        $messages = [
-                            [
-                                'type' => 'text',
-                                'text' => '近くにないです'
-                            ]
-                        ];
-                        replyMessage($client, $event['replyToken'], $messages);
-                        break;
-                    }
+                    $messages = [
+                        [
+                            'type' => 'text',
+                            'text' => '近くにないです'
+                        ]
+                    ];
+                    replyMessage($client, $event['replyToken'], $messages);
+                    break;
                 }
-        } else {
-                error_log('Unsupported event type:' . $event['type']);
-                break;
             }
-        };
+    } else {
+        error_log('Unsupported event type:' . $event['type']);
+        break;
+    }
+};
 ?>
