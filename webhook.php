@@ -78,7 +78,7 @@ foreach ($client->parseEvents() as $event) {
                                 'type' => 'carousel',
                                 'columns' => [
                                     [
-                                        'thumbnailImageUrl' => 'https://imgfp.hotp.jp/IMGH/22/89/P029102289/P029102289_69.jpg' , //画面表示方法検討中
+                                        'thumbnailImageUrl' => $columns[0][thumbnailImageUrl] , //画面表示方法検討中
                                         'imageBackgroundColor' => '#FFFFFF',
                                         'title' => $columns[0][title],
                                         'text' => $columns[0][text],//位置情報から店舗までの経路案内にリンク予定
