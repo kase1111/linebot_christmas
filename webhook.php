@@ -55,7 +55,7 @@ foreach ($client->parseEvents() as $event) {
                 //範囲
                 $range = 3;
                 //URL組み立て
-                $url  = $uri . '?key=' . $accesskey . '&lat=' . $lat . '&lng=' . $lng . '&range=' . $range;
+                $url  = $uri . '?key=' . $accesskey . '&lat=' . $lat . '&lng=' . $lng . '&range=' . $range . '&format=json';
                 //apiの情報取得
                 $conn = curl_init();
                 curl_setopt($conn, CURLOPT_URL, $url);
@@ -67,7 +67,7 @@ foreach ($client->parseEvents() as $event) {
                     $messages = [
                         [
                             'type' => 'text',
-                            'text' => $results->shop->name,
+                            'text' => $url,
                         ]
                     ];
                     replyMessage($client, $event['replyToken'], $messages);
