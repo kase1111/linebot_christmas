@@ -64,6 +64,14 @@ foreach ($client->parseEvents() as $event) {
                 $results = simplexml_load_string($res);
                 curl_close($conn);
                 // 店舗情報を取得
+                    $messages = [
+                        [
+                            'type' => 'text',
+                            'text' => $results->shop->name,
+                        ]
+                    ];
+                    replyMessage($client, $event['replyToken'], $messages);
+                    break;
                 $columns = array();
                 foreach ($results->shop as $restaurant) {
                     $columns[] = array(
@@ -79,14 +87,6 @@ foreach ($client->parseEvents() as $event) {
                         )
                     );
                 }
-                    $messages = [
-                        [
-                            'type' => 'text',
-                            'text' => $results->shop->name,
-                        ]
-                    ];
-                    replyMessage($client, $event['replyToken'], $messages);
-                    break;
                 if ($columns !== null) {
                 } else {
                         $messages = [
