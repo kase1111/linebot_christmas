@@ -74,7 +74,7 @@ foreach ($client->parseEvents() as $event) {
                             array(
                                 'type' => 'uri',
                                 'label' => '詳細を見る',
-                                'uri' => $restaurant->urls
+                                'uri' => $restaurant->urls->pc
                             )
                         )
                     );
