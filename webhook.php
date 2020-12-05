@@ -78,8 +78,8 @@ foreach ($client->parseEvents() as $event) {
                                 'type' => 'carousel',
                                 'columns' => [
                                     [
-                                        'thumbnailImageUrl' => $columns[0][thumbnailImageUrl] , //画面表示方法検討中
-                                        'imageBackgroundColor' => 'red',
+                                        //'thumbnailImageUrl' => $columns[0][thumbnailImageUrl] , //画面表示方法検討中
+                                        'imageBackgroundColor' => '#FFFFFF',
                                         'title' => $columns[0][title],
                                         'text' => $columns[0][text],//位置情報から店舗までの経路案内にリンク予定
                                         //'defaultAction' => [
