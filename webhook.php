@@ -64,11 +64,11 @@ foreach ($client->parseEvents() as $event) {
                 curl_setopt($conn, CURLOPT_URL, $url);
                 curl_setopt($conn, CURLOPT_RETURNTRANSFER, true);
                 $res = curl_exec($conn);
-                $obj = json_decode($res);
+                $results = json_decode($res);
                 curl_close($conn);
                 // 店舗情報を取得
                 $columns = array();
-                foreach ($obj->shop as $restaurant) {
+                foreach ($results->shop as $restaurant) {
                     $columns[] = array(
                         'thumbnailImageUrl' => $restaurant->logo_image,
                         'title' => $restaurant->name,
