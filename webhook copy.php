@@ -32,55 +32,31 @@ foreach ($client->parseEvents() as $event) {
     if ($event['type'] == 'message') {
         $message = $event['message'];
         switch ($message['type']) {
-            //メッセージタイプがスタンプの場合
-            case 'sticker':
-                $messages = [
-                    [
-                        'type' => 'sticker',
-                        'packageId' => 11537,
-                        'stickerId' => 52002739,
-                    ]
-                ];
-                replyMessage($client, $event['replyToken'], $messages);
-                break;
-            //メッセージタイプが位置情報の場合
             case 'location':
-                // 受信した位置情報からの情報
                 $lat = $message['latitude'];
                 $lon = $message['longitude'];
-                // ぐるなびapiURL
-                $uri = 'https://api.gnavi.co.jp/RestSearchAPI/v3/';
-                // ぐるなびアクセスキー
-                $gnaviaccesskey = '4c74ca54d51c346f418cf887746bbeab';
-                // ラーメン屋さんを意味するぐるなびのコード(小業態マスタ取得APIをコールして調査)
-                $category_s1 = 'RSFST08008';
-                // つけ麺屋さんを意味するぐるなびのコード(小業態マスタ取得APIをコールして調査)
-                $category_s2 = 'RSFST08008';
-                // 3件抽出
-                $hit_per_page = 3;
-                //範囲
+                $uri = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
+                $hotkey = '2a60a96fb9488110';
+                $count = 5;
                 $range = 3;
-                //URL組み立て
-                $url  = $uri . '?keyid=' . $gnaviaccesskey . '&latitude=' . $lat . '&longitude=' . $lon . '&range=' . $range . '&category_s=' . $category_s1 .'&category_s=' . $category_s2 . '&hit_per_page=' . $hit_per_page ;
-                //ぐるなびapiの情報取得
+                $url = $uri . '?key=' . $hotkey . '&latitude=' . $lat . '&longitude=' . $lon . '&range=' . $range . '&count' . $count;
                 $conn = curl_init();
                 curl_setopt($conn, CURLOPT_URL, $url);
                 curl_setopt($conn, CURLOPT_RETURNTRANSFER, true);
                 $res = curl_exec($conn);
-                $obj = json_decode($res);
+                $obj = json_decode($res, true);
                 curl_close($conn);
-                // 店舗情報を取得
                 $columns = array();
-                foreach ($obj->rest as $restaurant) {
+                foreach ($obj->shop as $restaurant) {
                     $columns[] = array(
-                        'thumbnailImageUrl' => $restaurant->image_url->shop_image1,
+                        'thumbnailImageUrl' => $restaurant->logo_image,
                         'title' => $restaurant->name,
                         'text' => $restaurant->address,
                         'actions' => array(
                             array(
                                 'type' => 'uri',
                                 'label' => '詳細を見る',
-                                'uri' => $restaurant->url
+                                'uri' => $restaurant->urls,
                             )
                         )
                     );
@@ -94,59 +70,41 @@ foreach ($client->parseEvents() as $event) {
                                 'type' => 'carousel',
                                 'columns' => [
                                     [
-                                        //'thumbnailImageUrl' => $columns[0][thumbnailImageUrl] , //画面表示方法検討中
                                         'imageBackgroundColor' => '#FFFFFF',
                                         'title' => $columns[0][title],
-                                        'text' => $columns[0][text],//位置情報から店舗までの経路案内にリンク予定
-                                        //'defaultAction' => [
-                                        //'type' => 'uri',
-                                        //'label' =>' View detail',
-                                        //'uri' => 'http://example.com/page/123', //ぐるなびuri
-                                    //],
+                                        'text' => $columns[0][text],
                                         'actions' => [
                                             [
                                                 'type' => 'uri',
-                                                'label' => 'ぐるなびサイトへ',
-                                                'uri'=>$columns[0]['actions'][0]['uri'],
+                                                'label' => 'ホットペッパーサイトへ',
+                                                'uri' => $columns[0]['actions'][0]['uri'],
                                             ]
                                         ]
                                     ],
                                     [
-                                        //'thumbnailImageUrl' => $columns[0][thumbnailImageUrl] , //画面表示方法検討中
                                         'imageBackgroundColor' => '#FFFFFF',
                                         'title' => $columns[1][title],
-                                        'text' => $columns[1][text],//位置情報から店舗までの経路案内にリンク予定
-                                        //'defaultAction' => [
-                                        //'type' => 'uri',
-                                        //'label' =>' View detail',
-                                        //'uri' => 'http://example.com/page/123', //ぐるなびuri
-                                    //],
+                                        'text' => $columns[1][text],
                                         'actions' => [
                                             [
                                                 'type' => 'uri',
-                                                'label' => 'ぐるなびサイトへ',
-                                                'uri' => $columns[1]['actions'][0]['uri'],
+                                                'label' => 'ホットペッパーサイトへ',
+                                                'uri' => $columns[1]['actions'][1]['uri'],
                                             ]
                                         ]
                                     ],
                                     [
-                                        //'thumbnailImageUrl' =>$columns[0][thumbnailImageUrl] , //画面表示方法検討中
                                         'imageBackgroundColor' => '#FFFFFF',
                                         'title' => $columns[2][title],
-                                        'text' => $columns[2][text],//リンクにしたい
-                                        //'defaultAction' => [
-                                        //'type' => 'uri',
-                                        //'label' =>' View detail',
-                                        //'uri' => 'http://example.com/page/123', //ぐるなびuri
-                                    //],
+                                        'text' => $columns[2][text],
                                         'actions' => [
                                             [
                                                 'type' => 'uri',
-                                                'label' => 'ぐるなびサイトへ',
-                                                'uri' => $columns[2]['actions'][0]['uri'],
+                                                'label' => 'ホットペッパーサイトへ',
+                                                'uri' => $columns[2]['actions'][2]['uri'],
                                             ]
                                         ]
-                                    ]
+                                    ],
                                 ]
                             ]
                         ]
@@ -154,11 +112,11 @@ foreach ($client->parseEvents() as $event) {
                     replyMessage($client, $event['replyToken'], $messages);
                     break;
                 } else {
-                        $messages = [
-                            [
-                                'type' => 'text',
-                                'text' => '残念ですが近くにラーメン屋が見つかりませんでした。'
-                            ]
+                    $messages = [
+                        [
+                            'type' => 'text',
+                            'text' => '近くにないです'
+                        ]
                     ];
                     replyMessage($client, $event['replyToken'], $messages);
                     break;
