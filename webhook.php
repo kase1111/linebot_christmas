@@ -68,7 +68,12 @@ foreach ($client->parseEvents() as $event) {
                 curl_close($conn);
                 // 店舗情報を取得
                 $columns = array();
-                    $messages = $url;
+                    $messages = [
+                        [
+                            'type' => 'text',
+                            'text' => $url
+                        ]
+                    ];
                     replyMessage($client, $event['replyToken'], $messages);
                     break;
                 foreach ($results->shop as $restaurant) {
