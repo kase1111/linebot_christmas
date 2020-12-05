@@ -44,7 +44,7 @@ foreach ($client->parseEvents() as $event) {
                 curl_setopt($conn, CURLOPT_URL, $url);
                 curl_setopt($conn, CURLOPT_RETURNTRANSFER, true);
                 $res = curl_exec($conn);
-                $obj = json_decode($res);
+                $obj = json_decode($res, true);
                 curl_close($conn);
                 $columns = array();
                 foreach ($obj->shop as $restaurant) {
