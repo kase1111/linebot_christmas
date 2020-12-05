@@ -83,7 +83,7 @@ foreach ($client->parseEvents() as $event) {
                     );
                 }
                 if ($columns !== null) {
-                    $messages = 'おk';
+                    $messages = $url;
                     replyMessage($client, $event['replyToken'], $messages);
                     break;
                 } else {
