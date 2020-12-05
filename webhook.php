@@ -68,16 +68,16 @@ foreach ($client->parseEvents() as $event) {
                 curl_close($conn);
                 // 店舗情報を取得
                 $columns = array();
-                foreach ($results->shop as $restaurant) {
+                foreach ($results->shop as $key => $value) {
                     $columns[] = array(
-                        'thumbnailImageUrl' => $restaurant->logo_image,
-                        'title' => $restaurant->name,
-                        'text' => $restaurant->address,
+                        'thumbnailImageUrl' => logo_image,
+                        'title' => name,
+                        'text' => address,
                         'actions' => array(
                             array(
                                 'type' => 'uri',
                                 'label' => '詳細を見る',
-                                'uri' => $restaurant->urls
+                                'uri' => urls
                             )
                         )
                     );
