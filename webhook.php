@@ -68,6 +68,9 @@ foreach ($client->parseEvents() as $event) {
                 curl_close($conn);
                 // 店舗情報を取得
                 $columns = array();
+                    $messages = $url;
+                    replyMessage($client, $event['replyToken'], $messages);
+                    break;
                 foreach ($results->shop as $restaurant) {
                     $columns[] = array(
                         'thumbnailImageUrl' => $restaurant->logo_image,
@@ -83,9 +86,6 @@ foreach ($client->parseEvents() as $event) {
                     );
                 }
                 if ($columns !== null) {
-                    $messages = $url;
-                    replyMessage($client, $event['replyToken'], $messages);
-                    break;
                 } else {
                         $messages = [
                             [
