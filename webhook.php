@@ -85,7 +85,7 @@ foreach ($client->parseEvents() as $event) {
                     $messages = [
                         [
                             'type' => 'text',
-                            'text' => $columns[0],
+                            'text' => $url,
                         ]
                     ];
                     replyMessage($client, $event['replyToken'], $messages);
