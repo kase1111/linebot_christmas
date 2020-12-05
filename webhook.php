@@ -81,6 +81,30 @@ foreach ($client->parseEvents() as $event) {
                                             ]
                                         ]
                                     ],
+                                    [
+                                        'imageBackgroundColor' => '#FFFFFF',
+                                        'title' => $columns[1][title],
+                                        'text' => $columns[1][text],
+                                        'actions' => [
+                                            [
+                                                'type' => 'uri',
+                                                'label' => 'ホットペッパーサイトへ',
+                                                'uri' => $columns[1]['actions'][1]['uri'],
+                                            ]
+                                        ]
+                                    ],
+                                    [
+                                        'imageBackgroundColor' => '#FFFFFF',
+                                        'title' => $columns[2][title],
+                                        'text' => $columns[2][text],
+                                        'actions' => [
+                                            [
+                                                'type' => 'uri',
+                                                'label' => 'ホットペッパーサイトへ',
+                                                'uri' => $columns[2]['actions'][2]['uri'],
+                                            ]
+                                        ]
+                                    ],
                                 ]
                             ]
                         ]
