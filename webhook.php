@@ -44,10 +44,8 @@ foreach ($client->parseEvents() as $event) {
                 $uri = 'https://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
                 // アクセスキー
                 $accesskey = '2a60a96fb9488110';
-                //範囲
-                $range = 5;
                 //URL組み立て
-                $url  = $uri . '?key=' . $accesskey . '&lat=' . $lat . '&lng=' . $lng . '&range=' . $range . '&format=json';
+                $url  = $uri . '?key=' . $accesskey . '&lat=' . $lat . '&lng=' . $lng . '&format=json';
                 //apiの情報取得
                 $conn = curl_init();
                 curl_setopt($conn, CURLOPT_URL, $url);
@@ -75,7 +73,7 @@ foreach ($client->parseEvents() as $event) {
                     $messages = [
                         [
                             'type' => 'template',
-                            'altText' => '周辺のラーメン屋情報',
+                            'altText' => '近くのお店情報',
                             'template' => [
                                 'type' => 'carousel',
                                 'columns' => [
@@ -96,32 +94,6 @@ foreach ($client->parseEvents() as $event) {
                                             ]
                                         ]
                                     ],
-                                    [
-                                        //'thumbnailImageUrl' => $columns[0][thumbnailImageUrl] , //画面表示方法検討中
-                                        'imageBackgroundColor' => '#FFFFFF',
-                                        'title' => $columns[1][title],
-                                        'text' => $columns[1][text],//位置情報から店舗までの経路案内にリンク予定
-                                        'actions' => [
-                                            [
-                                                'type' => 'uri',
-                                                'label' => 'ホットペッパーサイトへ',
-                                                'uri' => $columns[1]['actions'][0]['uri'],
-                                            ]
-                                        ]
-                                    ],
-                                    [
-                                        //'thumbnailImageUrl' =>$columns[0][thumbnailImageUrl] , //画面表示方法検討中
-                                        'imageBackgroundColor' => '#FFFFFF',
-                                        'title' => $columns[2][title],
-                                        'text' => $columns[2][text],//リンクにしたい
-                                        'actions' => [
-                                            [
-                                                'type' => 'uri',
-                                                'label' => 'ホットペッパーサイトへ',
-                                                'uri' => $columns[2]['actions'][0]['uri'],
-                                            ]
-                                        ]
-                                    ]
                                 ]
                             ]
                         ]
