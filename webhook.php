@@ -18,34 +18,72 @@
 
 require_once('./LINEBotTiny.php');
 
-$channelAccessToken = 'tIj/RKK/fUVsS7hbCxGoV2VPNva9IUc1Fw93Zk91LumhSLMzXKtXiRLz5ccDxEa6aW8lbk82z2RQL3VkSgs4ndjTuIhJHdXfeFsM+WzGK53MRNKaIA/8d6SQno9T5E7OElobWqJiBWwPHsjAKhBLuwdB04t89/1O/w1cDnyilFU=
-';
-$channelSecret = 'e5b1abaeeecd4d6f3fb9076f177f3ca1';
+$channelAccessToken = 'Lpm434bCKVMXwPrWzzXBwlYs9RCFtSVREK4NOCk0MgcJ+yH2dYr0CjGYbdiJNSJ7PvcfENA8cYDHa68/6DI77yuA47wWBLPoxbfWyyB9WpdVwmIY+ZptXxi3azGC1SPmZ7mOEq3X37Kr8V/Ecu3NewdB04t89/1O/w1cDnyilFU=';
+$channelSecret = 'c70215b39f1d8d6919dee4819b40a2f7';
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
+function replyMessage($client, $reply_token, $messages) {
+    return $client->replyMessage([
+        'replyToken' => $reply_token,
+        'messages' => $messages,
+    ])
+}
 foreach ($client->parseEvents() as $event) {
-    switch ($event['type']) {
-        case 'message':
-            $message = $event['message'];
+    if ($event['type'] == 'message') {
+        $message = $event['message'];
             switch ($message['type']) {
-                case 'text':
-                    $client->replyMessage([
-                        'replyToken' => $event['replyToken'],
-                        'messages' => [
+                case 'location':
+                    $lat = $message['latitude'];
+                    $lon = $message['longitude'];
+                    $uri = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
+                    $hotpepperaccesskey = '2a60a96fb9488110';
+                    $count = 5;
+                    $range = 3;
+                    $url = $uri . '?key=' . $hotpepperaccesskey . '&latitude=' . $lat . '&longitude=' . $lon . '&range=' . $range . '&count' . $count;
+                    $conn = curl_init();
+                    curl_setopt($conn, CURLOPT_URL, $url);
+                    curl_setopt($conn, CURLOPT_RETURNTRANSFER, true);
+                    $res = curl_exec($conn);
+                    $obj = json_decode($res);
+                    curl_close($conn);
+                    $columns = array();
+                    foreach ($obj->shop as $restaurant) {
+                        $columns[] = array(
+                            'title' => $restaurant->name,
+                            'text' => $restaurant->address,
+                        )
+                    }
+                    if ($columns !== null) {
+                        $messages = [
+                            [
+                                'type' => 'template',
+                                'altText' => '周辺のラーメン屋情報',
+                                'template' => [
+                                    'type' => 'carousel',
+                                    'columns' => [
+                                        [
+                                            'title' => $columns[0][title],
+                                            'text' => $columns[0][text],
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ];
+                        replyMessage($client, $event['replyToken'], $messages);
+                        break;
+                    } else {
+                        $messages = [
                             [
                                 'type' => 'text',
-                                'text' => $message['text']
+                                'text' => '近くにないです'
                             ]
-                        ]
-                    ]);
-                    break;
-                default:
-                    error_log('Unsupported message type: ' . $message['type']);
-                    break;
-            }
-            break;
-        default:
-            error_log('Unsupported event type: ' . $event['type']);
-            break;
+                        ];
+                        replyMessage($client, $event['replyToken'], $messages);
+                        break;
+                    }
+                }
+    } else {
+        error_log('Unsupported event type:' . $event['type']);
+        break;
     }
 };
