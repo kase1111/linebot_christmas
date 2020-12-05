@@ -93,8 +93,8 @@ foreach ($client->parseEvents() as $event) {
                                     [
                                         //'thumbnailImageUrl' => $columns[0][thumbnailImageUrl] , //画面表示方法検討中
                                         'imageBackgroundColor' => '#FFFFFF',
-                                        'title' => $columns[0][title],
-                                        'text' => $columns[0][text],//位置情報から店舗までの経路案内にリンク予定
+                                        'title' => 'タイトル',
+                                        'text' => '場所',//位置情報から店舗までの経路案内にリンク予定
                                         //'defaultAction' => [
                                         //'type' => 'uri',
                                         //'label' =>' View detail',
@@ -104,15 +104,15 @@ foreach ($client->parseEvents() as $event) {
                                             [
                                                 'type' => 'uri',
                                                 'label' => 'ぐるなびサイトへ',
-                                                'uri'=>$columns[0]['actions'][0]['uri'],
+                                                'uri'=> 'uri',
                                             ]
                                         ]
                                     ],
                                     [
                                         //'thumbnailImageUrl' => $columns[0][thumbnailImageUrl] , //画面表示方法検討中
                                         'imageBackgroundColor' => '#FFFFFF',
-                                        'title' => $columns[1][title],
-                                        'text' => $columns[1][text],//位置情報から店舗までの経路案内にリンク予定
+                                        'title' => 'タイトル',
+                                        'text' => '場所',//位置情報から店舗までの経路案内にリンク予定
                                         //'defaultAction' => [
                                         //'type' => 'uri',
                                         //'label' =>' View detail',
@@ -122,15 +122,15 @@ foreach ($client->parseEvents() as $event) {
                                             [
                                                 'type' => 'uri',
                                                 'label' => 'ぐるなびサイトへ',
-                                                'uri' => $columns[1]['actions'][0]['uri'],
+                                                'uri' => 'uri',
                                             ]
                                         ]
                                     ],
                                     [
                                         //'thumbnailImageUrl' =>$columns[0][thumbnailImageUrl] , //画面表示方法検討中
                                         'imageBackgroundColor' => '#FFFFFF',
-                                        'title' => $columns[2][title],
-                                        'text' => $columns[2][text],//リンクにしたい
+                                        'title' => 'タイトル',
+                                        'text' => '場所',//リンクにしたい
                                         //'defaultAction' => [
                                         //'type' => 'uri',
                                         //'label' =>' View detail',
@@ -140,7 +140,7 @@ foreach ($client->parseEvents() as $event) {
                                             [
                                                 'type' => 'uri',
                                                 'label' => 'ぐるなびサイトへ',
-                                                'uri' => $columns[2]['actions'][0]['uri'],
+                                                'uri' => 'uri',
                                             ]
                                         ]
                                     ]
