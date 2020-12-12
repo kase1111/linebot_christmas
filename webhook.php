@@ -1,6 +1,5 @@
 <?php
 require_once('./LINEBotTiny.php');
-require_once('./quickstart.php');
 $channelAccessToken = 'VXAu/vpj3M5WrcfasKd8+GsWwUjccHBLKRxN3mEg4VKzqbjSe+dJHBmdENpfY3z79kvA63eVRFYnF0YkS9SQcKZEWYzyD+xbq/vIL5spzzdSv2NaRSDnm2/mnfU1Y5YgucKEe4fq0u6Zm4Npp2td/AdB04t89/1O/w1cDnyilFU=';
 $channelSecret = '6c467bf7a3b8ba71de2575038e27c522';
 
