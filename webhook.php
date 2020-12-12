@@ -14,7 +14,6 @@ foreach ($client->parseEvents() as $event) {
     if ($event['type'] == 'message') {
         $message = $event['message'];
         switch ($message['type']) {
-            //メッセージタイプがスタンプの場合
             case 'text':
                 $messages = [
                     [
@@ -35,25 +34,18 @@ foreach ($client->parseEvents() as $event) {
                 ];
                 replyMessage($client, $event['replyToken'], $messages);
                 break;
-            //メッセージタイプが位置情報の場合
             case 'location':
-                // 受信した位置情報からの情報
                 $lat = $message['latitude'];
                 $lng = $message['longitude'];
-                // apiURL
                 $uri = 'https://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
-                // アクセスキー
                 $accesskey = '2a60a96fb9488110';
-                //URL組み立て
                 $url  = $uri . '?key=' . $accesskey . '&lat=' . $lat . '&lng=' . $lng . '&format=json';
-                //apiの情報取得
                 $conn = curl_init();
                 curl_setopt($conn, CURLOPT_URL, $url);
                 curl_setopt($conn, CURLOPT_RETURNTRANSFER, true);
                 $res = curl_exec($conn);
                 $results = json_decode($res);
                 curl_close($conn);
-                // 店舗情報を取得
                 $columns = array();
                 foreach ($results->results->shop as $restaurant) {
                     $columns[] = array(
@@ -78,14 +70,10 @@ foreach ($client->parseEvents() as $event) {
                                 'type' => 'carousel',
                                 'columns' => [
                                     [
-                                        'thumbnailImageUrl' => $columns[0][thumbnailImageUrl] , //画面表示方法検討中
+                                        'thumbnailImageUrl' => $columns[0][thumbnailImageUrl] ,
                                         'imageBackgroundColor' => '#FFFFFF',
                                         'title' => $columns[0][title],
-                                        'text' => $columns[0][text],//位置情報から店舗までの経路案内にリンク予定
-                                        //'defaultAction' => [
-                                        //'type' => 'uri',
-                                        //'label' =>' View detail',
-                                        //],
+                                        'text' => $columns[0][text],
                                         'actions' => [
                                             [
                                                 'type' => 'uri',
@@ -110,7 +98,7 @@ foreach ($client->parseEvents() as $event) {
                     replyMessage($client, $event['replyToken'], $messages);
                     break;
                 }
-            }
+        }
     } else {
         error_log('Unsupported event type:' . $event['type']);
         break;
