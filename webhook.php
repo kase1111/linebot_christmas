@@ -40,6 +40,13 @@ function getClient()
     }
     return $client;
 }
+$client = getClient();
+$service = new Google_Service_Sheets($client);
+
+$spreadsheetId = '1RObht-7A9jEDU_a8z_8tcboIEVi-aWD0Wjacih3G1ZM';
+$range = 'Sheet1!B2:C4';
+$response = $service->spreadsheets_values->get($spreadsheetId, $range);
+$values = $response->getValues();
 $clients = new LINEBotTiny($channelAccessToken, $channelSecret);
 function replyMessage($clients, $reply_token, $messages) {
     return $clients->replyMessage([
