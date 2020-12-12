@@ -3,14 +3,14 @@ require_once('./LINEBotTiny.php');
 $channelAccessToken = 'VXAu/vpj3M5WrcfasKd8+GsWwUjccHBLKRxN3mEg4VKzqbjSe+dJHBmdENpfY3z79kvA63eVRFYnF0YkS9SQcKZEWYzyD+xbq/vIL5spzzdSv2NaRSDnm2/mnfU1Y5YgucKEe4fq0u6Zm4Npp2td/AdB04t89/1O/w1cDnyilFU=';
 $channelSecret = '6c467bf7a3b8ba71de2575038e27c522';
 
-$clients = new LINEBotTiny($channelAccessToken, $channelSecret);
-function replyMessage($clients, $reply_token, $messages) {
-    return $clients->replyMessage([
+$client = new LINEBotTiny($channelAccessToken, $channelSecret);
+function replyMessage($client, $reply_token, $messages) {
+    return $client->replyMessage([
         'replyToken' => $reply_token,
         'messages' => $messages
     ]);
 }
-foreach ($clients->parseEvents() as $event) {
+foreach ($client->parseEvents() as $event) {
     if ($event['type'] == 'message') {
         $message = $event['message'];
         switch ($message['type']) {
@@ -22,7 +22,7 @@ foreach ($clients->parseEvents() as $event) {
 
                     ]
                 ];
-                replyMessage($clients, $event['replyToken'], $messages);
+                replyMessage($client, $event['replyToken'], $messages);
                 break;
             case 'sticker':
                 $messages = [
@@ -32,7 +32,7 @@ foreach ($clients->parseEvents() as $event) {
 
                     ]
                 ];
-                replyMessage($clients, $event['replyToken'], $messages);
+                replyMessage($client, $event['replyToken'], $messages);
                 break;
             case 'location':
                 $lat = $message['latitude'];
