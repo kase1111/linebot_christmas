@@ -62,7 +62,7 @@ foreach ($clients->parseEvents() as $event) {
                 $messages = [
                     [
                         'type' => 'text',
-                        'text' => '位置情報を送れ',
+                        'text' => $values[0][0],//'位置情報を送れ',
 
                     ]
                 ];

@@ -85,7 +85,7 @@ $spreadsheetId = '1RObht-7A9jEDU_a8z_8tcboIEVi-aWD0Wjacih3G1ZM';
 $range = 'Sheet1!B2:C4';
 $response = $service->spreadsheets_values->get($spreadsheetId, $range);
 $values = $response->getValues();
-print_r($values);
+echo $values[0][0];
 die();
 if (empty($values)) {
     print "No data found.\n";
