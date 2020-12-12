@@ -4,14 +4,6 @@ $channelAccessToken = 'VXAu/vpj3M5WrcfasKd8+GsWwUjccHBLKRxN3mEg4VKzqbjSe+dJHBmdE
 $channelSecret = '6c467bf7a3b8ba71de2575038e27c522';
 
 require __DIR__ . '/vendor/autoload.php';
-if (php_sapi_name() != 'cli') {
-    throw new Exception('This application must be run on the command line.');
-}
-
-/**
- * Returns an authorized API client.
- * @return Google_Client the authorized client object
- */
 $clients = new LINEBotTiny($channelAccessToken, $channelSecret);
 function replyMessage($clients, $reply_token, $messages) {
     return $clients->replyMessage([
