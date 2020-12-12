@@ -1,7 +1,7 @@
 <?php
 require_once('./LINEBotTiny.php');
-$channelAccessToken = 'Lpm434bCKVMXwPrWzzXBwlYs9RCFtSVREK4NOCk0MgcJ+yH2dYr0CjGYbdiJNSJ7PvcfENA8cYDHa68/6DI77yuA47wWBLPoxbfWyyB9WpdVwmIY+ZptXxi3azGC1SPmZ7mOEq3X37Kr8V/Ecu3NewdB04t89/1O/w1cDnyilFU=';
-$channelSecret = 'c70215b39f1d8d6919dee4819b40a2f7';
+$channelAccessToken = 'VXAu/vpj3M5WrcfasKd8+GsWwUjccHBLKRxN3mEg4VKzqbjSe+dJHBmdENpfY3z79kvA63eVRFYnF0YkS9SQcKZEWYzyD+xbq/vIL5spzzdSv2NaRSDnm2/mnfU1Y5YgucKEe4fq0u6Zm4Npp2td/AdB04t89/1O/w1cDnyilFU=';
+$channelSecret = '6c467bf7a3b8ba71de2575038e27c522';
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 function replyMessage($client, $reply_token, $messages) {
