@@ -14,7 +14,7 @@ foreach ($clients->parseEvents() as $event) {
         $message = $event['message'];
         switch ($message['type']) {
             case 'text':
-                //if ($message['text'] == "独身") {
+                if ($message['text'] == "独身") {
                 $messages = [
                     [
                         "type" => "template",
@@ -52,6 +52,15 @@ foreach ($clients->parseEvents() as $event) {
                 ];
                 replyMessage($clients, $event['replyToken'], $messages);
                 break;
+            } else {
+                $clients->replyMessage([
+                    'replyToken' => $event['replyToken'],
+                    'messages' => [
+                        ['type' => 'text', 'text' => $message['text']]
+                     ]
+                ]);
+                break;
+            }
             case 'sticker':
                 $messages = [
                     [
