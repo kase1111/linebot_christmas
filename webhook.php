@@ -52,7 +52,7 @@ foreach ($clients->parseEvents() as $event) {
                 ];
                 break;
             } else {
-                $client->replyMessage([
+                $clients->replyMessage([
                     'replyToken' => $event['replyToken'],
                     'messages' => [
                         ['type' => 'text', 'text' => $message['text']]
