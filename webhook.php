@@ -14,43 +14,12 @@ foreach ($clients->parseEvents() as $event) {
         $message = $event['message'];
         switch ($message['type']) {
             case 'text':
-                $messages = [
-                    [
-                        "type" => "template",
-                        "altText" => "This is a buttons template",
-                        "template" => [
-                            "type" => "buttons",
-                            "thumbnailImageUrl" => "https://profile.line-scdn.net/0m0201800c7251db82f85e7e2f9dec6ae822521f83cae0",
-                            "imageAspectRatio" => "rectangle",
-                            "imageSize" => "cover",
-                            "imageBackgroundColor" => "#FFFFFF",
-                            "title" => "クリスマスはいかが過ごしたいですか？",
-                            "text" => "Please select",
-                            "actions" => [
-                                [
-                                    "type" => "postback",
-                                    "label" => "デートスポット",
-                                    "data" => "action=buy&itemid=123",
-                                    "displayText" => "デートスポット"
-                                ],
-                                [
-                                    "type" => "postback",
-                                    "label" => "映画",
-                                    "data" => "action=add&itemid=123",
-                                    "displayText" => "映画"
-                                ],
-                                [
-                                    "type" => "postback",
-                                    "label" => "プレゼント",
-                                    "data" => "action=add&itemid=123",
-                                    "displayText" => "プレゼント"
-                                ]
-                            ]
-                        ]
-                    ]
-                ];
-                replyMessage($clients, $event['replyToken'], $messages);
-                break;
+                $client->replyMessage([
+                    'replyToken' => $event['replyToken'],
+                    'messages' => [
+                        ['type' => 'text', 'text' => $message['text']]
+                     ]
+                ]);
             case 'sticker':
                 $messages = [
                     [
@@ -61,70 +30,6 @@ foreach ($clients->parseEvents() as $event) {
                 ];
                 replyMessage($clients, $event['replyToken'], $messages);
                 break;
-            case 'location':
-                $lat = $message['latitude'];
-                $lng = $message['longitude'];
-                $uri = 'https://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
-                $accesskey = '2a60a96fb9488110';
-                $url  = $uri . '?key=' . $accesskey . '&lat=' . $lat . '&lng=' . $lng . '&format=json';
-                $conn = curl_init();
-                curl_setopt($conn, CURLOPT_URL, $url);
-                curl_setopt($conn, CURLOPT_RETURNTRANSFER, true);
-                $res = curl_exec($conn);
-                $results = json_decode($res);
-                curl_close($conn);
-                $columns = array();
-                foreach ($results->results->shop as $restaurant) {
-                    $columns[] = array(
-                        'thumbnailImageUrl' => $restaurant->logo_image,
-                        'title' => $restaurant->name,
-                        'text' => $restaurant->address,
-                        'actions' => array(
-                            array(
-                                'type' => 'uri',
-                                'label' => '詳細を見る',
-                                'uri' => $restaurant->urls->pc
-                            )
-                        )
-                    );
-                }
-                if ($columns !== null) {
-                    $messages = [
-                        [
-                            'type' => 'template',
-                            'altText' => '近くのお店情報',
-                            'template' => [
-                                'type' => 'carousel',
-                                'columns' => [
-                                    [
-                                        'thumbnailImageUrl' => $columns[0][thumbnailImageUrl] ,
-                                        'imageBackgroundColor' => '#FFFFFF',
-                                        'title' => $columns[0][title],
-                                        'text' => $columns[0][text],
-                                        'actions' => [
-                                            [
-                                                'type' => 'uri',
-                                                'label' => 'ホットペッパーサイトへ',
-                                                'uri'=>$columns[0]['actions'][0]['uri'],
-                                            ]
-                                        ]
-                                    ],
-                                ]
-                            ]
-                        ]
-                    ];
-                    replyMessage($clients, $event['replyToken'], $messages);
-                    break;
-                } else {
-                        $messages = [
-                            [
-                                'type' => 'text',
-                                'text' => '近くにお店が見つかりませんでした。'
-                            ]
-                    ];
-                    replyMessage($clients, $event['replyToken'], $messages);
-                    break;
-                }
         }
     } else {
         error_log('Unsupported event type:' . $event['type']);
