@@ -11,7 +11,7 @@ foreach ($clients->parseEvents() as $event) {
                 $messages = [
                     [
                         'type' => 'text',
-                        'text' => $values[0][1],//'位置情報を送れ',
+                        'text' => '位置情報を送ってください',
 
                     ]
                 ];
