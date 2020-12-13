@@ -14,42 +14,12 @@ foreach ($clients->parseEvents() as $event) {
         $message = $event['message'];
         switch ($message['type']) {
             case 'text':
-                $messages = [
-                    [
-                        "type" => "template",
-                        "altText" => "This is a buttons template",
-                        "template" => [
-                            "type" => "buttons",
-                            "thumbnailImageUrl" => "https://profile.line-scdn.net/0m0201800c7251db82f85e7e2f9dec6ae822521f83cae0",
-                            "imageAspectRatio" => "rectangle",
-                            "imageSize" => "cover",
-                            "imageBackgroundColor" => "#FFFFFF",
-                            "title" => "クリスマスはいかが過ごしたいですか？",
-                            "text" => "Please select",
-                            "actions" => [
-                                [
-                                    "type" => "postback",
-                                    "label" => "デートスポット",
-                                    "data" => "action=buy&itemid=123",
-                                    "displayText" => "デートスポット"
-                                ],
-                                [
-                                    "type" => "postback",
-                                    "label" => "映画",
-                                    "data" => "action=add&itemid=123",
-                                    "displayText" => "映画"
-                                ],
-                                [
-                                    "type" => "postback",
-                                    "label" => "プレゼント",
-                                    "data" => "action=add&itemid=123",
-                                    "displayText" => "プレゼント"
-                                ]
-                            ]
-                        ]
-                    ]
-                ];
-                replyMessage($clients, $event['replyToken'], $messages);
+                $clients->replyMessage([
+                    'replyToken' => $event['replyToken'],
+                    'messages' => [
+                        ['type' => 'text', 'text' => $message['text']]
+                     ]
+                ]);
                 break;
             case 'sticker':
                 $messages = [
