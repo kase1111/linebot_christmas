@@ -31,19 +31,19 @@ foreach ($clients->parseEvents() as $event) {
                                     "type" => "postback",
                                     "label" => "デートスポット",
                                     "data" => "action=buy&itemid=123",
-                                    "displaytext" => "デートスポット"
+                                    "displayText" => "デートスポット"
                                 ],
                                 [
                                     "type" => "postback",
                                     "label" => "映画",
                                     "data" => "action=add&itemid=123",
-                                    "displaytext" => "映画"
+                                    "displayText" => "映画"
                                 ],
                                 [
                                     "type" => "postback",
                                     "label" => "プレゼント",
                                     "data" => "action=add&itemid=123",
-                                    "displaytext" => "プレゼント"
+                                    "displayText" => "プレゼント"
                                 ]
                             ]
                         ]
