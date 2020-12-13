@@ -26,21 +26,16 @@ foreach ($clients->parseEvents() as $event) {
                             "imageBackgroundColor" => "#FFFFFF",
                             "title" => "Menu",
                             "text" => "Please select",
-                            "defaultAction" => [
-                                "type" => "uri",
-                                "label" => "View detail",
-                                "uri" => "http://example.com/page/123"
-                            ],
                             "actions" => [
                                 [
                                     "type" => "postback",
-                                    "label" => "Buy",
-                                    "data" => "action=buy&itemid=123"
+                                    "label" => "デートスポット",
+                                    "displaytext" => "デートスポット"
                                 ],
                                 [
                                     "type" => "postback",
-                                    "label" => "Add to cart",
-                                    "data" => "action=add&itemid=123"
+                                    "label" => "映画",
+                                    "displaytext" => "映画"
                                 ],
                                 [
                                     "type" => "uri",
