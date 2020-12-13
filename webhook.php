@@ -34,18 +34,18 @@ foreach ($clients->parseEvents() as $event) {
                             "actions" => [
                                 [
                                     "type" => "postback",
-                                    "label" => "Buy",
-                                    "data" => "action=buy&itemid=123"
+                                    "label" => "デートスポット",
+                                    "text" => "デートスポット"
                                 ],
                                 [
                                     "type" => "postback",
-                                    "label" => "Add to cart",
-                                    "data" => "action=add&itemid=123"
+                                    "label" => "おすすめ映画",
+                                    "text" => "おすすめ映画"
                                 ],
                                 [
-                                    "type" => "uri",
-                                    "label" => "View detail",
-                                    "uri" => "http://example.com/page/123"
+                                    "type" => "postback",
+                                    "label" => "プレゼントを送る",
+                                    "text" => "プレゼントを送る"
                                 ]
                             ]
                         ]
