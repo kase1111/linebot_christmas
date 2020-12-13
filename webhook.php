@@ -17,7 +17,7 @@ foreach ($clients->parseEvents() as $event) {
                 $clients->replyMessage([
                     'replyToken' => $event['replyToken'],
                     'messages' => [
-                        ['type' => 'text', 'text' => $message['text']]
+                        ['type' => 'text', 'text' => "[" . $message['text'] . "だな]"]
                      ]
                 ]);
                 break;
