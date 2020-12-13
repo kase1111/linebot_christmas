@@ -14,6 +14,7 @@ foreach ($clients->parseEvents() as $event) {
         $message = $event['message'];
         switch ($message['type']) {
             case 'text':
+                if ($message['type']['text'] == 1) {
                 $messages = [
                     [
                         "type" => "template",
@@ -40,9 +41,10 @@ foreach ($clients->parseEvents() as $event) {
                                     "displaytext" => "映画"
                                 ],
                                 [
-                                    "type" => "uri",
-                                    "label" => "View detail",
-                                    "uri" => "http://example.com/page/123"
+                                    "type" => "postback",
+                                    "label" => "プレゼント",
+                                    "data" => "action=add&itemid=123",
+                                    "displaytext" => "プレゼント"
                                 ]
                             ]
                         ]
@@ -50,6 +52,17 @@ foreach ($clients->parseEvents() as $event) {
                 ];
                 replyMessage($clients, $event['replyToken'], $messages);
                 break;
+            } else {
+                $messages = [
+                    [
+                        'type' => 'text',
+                        'text' => '位置情報を送ってください',
+
+                    ]
+                ];
+                replyMessage($clients, $event['replyToken'], $messages);
+                break;
+            }
             case 'sticker':
                 $messages = [
                     [
