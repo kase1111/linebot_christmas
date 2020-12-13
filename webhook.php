@@ -12,7 +12,8 @@ function replyMessage($clients, $reply_token, $messages) {
 foreach ($clients->parseEvents() as $event) {
     if ($event['type'] == 'message') {
         $message = $event['message'];
-                if ($message['type']['text'] == 1) {
+        switch ($message['type']) {
+            case 'text':
                 $messages = [
                     [
                         "type" => "template",
@@ -50,18 +51,6 @@ foreach ($clients->parseEvents() as $event) {
                 ];
                 replyMessage($clients, $event['replyToken'], $messages);
                 break;
-            } else {
-                $messages = [
-                    [
-                        'type' => 'text',
-                        'text' => '位置情報を送ってください',
-
-                    ]
-                ];
-                replyMessage($clients, $event['replyToken'], $messages);
-                break;
-            }
-        switch ($message['type']) {
             case 'sticker':
                 $messages = [
                     [
