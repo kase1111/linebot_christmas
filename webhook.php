@@ -14,53 +14,111 @@ foreach ($clients->parseEvents() as $event) {
         $message = $event['message'];
         switch ($message['type']) {
             case 'text':
-                if ($message['text'] == "独身") {
-                $messages = [
-                    [
-                        "type" => "template",
-                        "altText" => "This is a buttons template",
-                        "template" => [
-                            "type" => "buttons",
-                            "thumbnailImageUrl" => "https://profile.line-scdn.net/0m0201800c7251db82f85e7e2f9dec6ae822521f83cae0",
-                            "imageAspectRatio" => "rectangle",
-                            "imageSize" => "cover",
-                            "imageBackgroundColor" => "#FFFFFF",
-                            "title" => "クリスマスはいかが過ごしたいですか？",
-                            "text" => "Please select",
-                            "actions" => [
-                                [
-                                    "type" => "postback",
-                                    "label" => "デートスポット",
-                                    "data" => "action=buy&itemid=123",
-                                    "displayText" => "デートスポット"
-                                ],
-                                [
-                                    "type" => "postback",
-                                    "label" => "映画",
-                                    "data" => "action=add&itemid=123",
-                                    "displayText" => "映画"
-                                ],
-                                [
-                                    "type" => "postback",
-                                    "label" => "プレゼント",
-                                    "data" => "action=add&itemid=123",
-                                    "displayText" => "プレゼント"
+                if ($message['text'] == "独身" || $message['text'] == "一人") {
+                    $messages = [
+                        [
+                            "type" => "template",
+                            "altText" => "This is a buttons template",
+                            "template" => [
+                                "type" => "buttons",
+                                "thumbnailImageUrl" => "https://profile.line-scdn.net/0m0201800c7251db82f85e7e2f9dec6ae822521f83cae0",
+                                "imageAspectRatio" => "rectangle",
+                                "imageSize" => "cover",
+                                "imageBackgroundColor" => "#FFFFFF",
+                                "title" => "クリスマスの過ごしかた",
+                                "text" => "Please select",
+                                "actions" => [
+                                    [
+                                        "type" => "postback",
+                                        "label" => "出かける",
+                                        "data" => "action=buy&itemid=123",
+                                        "displayText" => "出かける"
+                                    ],
+                                    [
+                                        "type" => "postback",
+                                        "label" => "映画を見る",
+                                        "data" => "action=add&itemid=123",
+                                        "displayText" => "映画を見る"
+                                    ],
                                 ]
                             ]
                         ]
-                    ]
-                ];
-                replyMessage($clients, $event['replyToken'], $messages);
-                break;
-            } else {
-                $clients->replyMessage([
-                    'replyToken' => $event['replyToken'],
-                    'messages' => [
-                        ['type' => 'text', 'text' => $message['text']]
-                     ]
-                ]);
-                break;
-            }
+                    ];
+                    replyMessage($clients, $event['replyToken'], $messages);
+                    break;
+                } elseif ($message['text'] == "カップル" || $message['text'] == "二人" || $message['text'] == "彼氏" || $message['text'] == "彼女") {
+                    $messages = [
+                        [
+                            "type" => "template",
+                            "altText" => "This is a buttons template",
+                            "template" => [
+                                "type" => "buttons",
+                                "thumbnailImageUrl" => "https://profile.line-scdn.net/0m0201800c7251db82f85e7e2f9dec6ae822521f83cae0",
+                                "imageAspectRatio" => "rectangle",
+                                "imageSize" => "cover",
+                                "imageBackgroundColor" => "#FFFFFF",
+                                "title" => "クリスマスの過ごしかた",
+                                "text" => "Please select",
+                                "actions" => [
+                                    [
+                                        "type" => "postback",
+                                        "label" => "デートスポットを探す",
+                                        "data" => "action=buy&itemid=123",
+                                        "displayText" => "デートスポットを探す"
+                                    ],
+                                    [
+                                        "type" => "postback",
+                                        "label" => "プレゼントを送る",
+                                        "data" => "action=add&itemid=123",
+                                        "displayText" => "プレゼントを送る"
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ];
+                    replyMessage($clients, $event['replyToken'], $messages);
+                    break;
+                } elseif ($message['text'] == "家族") {
+                    $messages = [
+                        [
+                            "type" => "template",
+                            "altText" => "This is a buttons template",
+                            "template" => [
+                                "type" => "buttons",
+                                "thumbnailImageUrl" => "https://profile.line-scdn.net/0m0201800c7251db82f85e7e2f9dec6ae822521f83cae0",
+                                "imageAspectRatio" => "rectangle",
+                                "imageSize" => "cover",
+                                "imageBackgroundColor" => "#FFFFFF",
+                                "title" => "クリスマスの過ごしかた",
+                                "text" => "Please select",
+                                "actions" => [
+                                    [
+                                        "type" => "postback",
+                                        "label" => "映画を見る",
+                                        "data" => "action=add&itemid=123",
+                                        "displayText" => "映画を見る"
+                                    ],
+                                    [
+                                        "type" => "postback",
+                                        "label" => "プレゼントを送る",
+                                        "data" => "action=add&itemid=123",
+                                        "displayText" => "プレゼントを送る"
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ];
+                    replyMessage($clients, $event['replyToken'], $messages);
+                    break;
+                } else {
+                    $clients->replyMessage([
+                        'replyToken' => $event['replyToken'],
+                        'messages' => [
+                            ['type' => 'text', 'text' => "クリスマスは誰と過ごしますか"]
+                        ]
+                    ]);
+                    break;
+                }
             case 'sticker':
                 $messages = [
                     [
