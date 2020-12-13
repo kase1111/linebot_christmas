@@ -85,10 +85,6 @@ foreach ($clients->parseEvents() as $event) {
                             "altText" => "This is a buttons template",
                             "template" => [
                                 "type" => "buttons",
-                                "thumbnailImageUrl" => "https://56emon-cafe.com/wp-content/uploads/2018/11/happychristmas-e1542467819826.jpg",
-                                "imageAspectRatio" => "rectangle",
-                                "imageSize" => "cover",
-                                "imageBackgroundColor" => "#FFFFFF",
                                 "title" => "クリスマスの過ごしかた",
                                 "text" => "Please select",
                                 "actions" => [
