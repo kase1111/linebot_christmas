@@ -30,11 +30,13 @@ foreach ($clients->parseEvents() as $event) {
                                 [
                                     "type" => "postback",
                                     "label" => "デートスポット",
+                                    "data" => "action=buy&itemid=123",
                                     "displaytext" => "デートスポット"
                                 ],
                                 [
                                     "type" => "postback",
                                     "label" => "映画",
+                                    "data" => "action=add&itemid=123",
                                     "displaytext" => "映画"
                                 ],
                                 [
