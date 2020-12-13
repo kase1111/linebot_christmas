@@ -24,8 +24,8 @@ foreach ($clients->parseEvents() as $event) {
                             "imageAspectRatio" => "rectangle",
                             "imageSize" => "cover",
                             "imageBackgroundColor" => "#FFFFFF",
-                            "title" => "Menu",
-                            "text" => "Please select",
+                            "title" => "クリスマスはいかが過ごしたいですか？",
+                            //"text" => "Please select",
                             "actions" => [
                                 [
                                     "type" => "postback",
