@@ -181,10 +181,8 @@ function replyMessage($clients, $reply_token, $messages) {
                 'text' => $postback
             );
             replyMessage($clients, $event['replyToken'], $messages);
-            break;
     } else {
         error_log('Unsupported event type:' . $event['type']);
-        break;
     };
 //};
 ?>
