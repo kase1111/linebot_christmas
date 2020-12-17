@@ -176,14 +176,13 @@ foreach ($clients->parseEvents() as $event) {
         }
     } elseif ($event['type'] == 'postback'){
         $postback = $event['type']->{'postback'}->{'data'};
-        if($postback === 'action=add&itemid=123') {
             // 日にち選択時
             $message = array(
                 'type' => 'text',
-                'text' => '予約を承りました。'
+                'text' => $postback
             );
-
-        }
+            replyMessage($clients, $event['replyToken'], $messages);
+            break;
     } else {
         error_log('Unsupported event type:' . $event['type']);
         break;
