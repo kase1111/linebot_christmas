@@ -76,7 +76,7 @@ foreach ($clients->parseEvents() as $event) {
                                         "type" => "postback",
                                         "label" => "出かける",
                                         "data" => "action=buy&itemid=123",
-                                        "displayText" => $values[1][1]
+                                        "displayText" => "出かける"
                                     ],
                                     [
                                         "type" => "postback",
