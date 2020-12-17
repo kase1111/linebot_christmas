@@ -172,7 +172,6 @@ foreach ($clients->parseEvents() as $event) {
                     ]
                 ];
                 replyMessage($clients, $event['replyToken'], $messages);
-                break;
         }
     } elseif ($event['type'] == 'postback'){
         $postback = $event['type']->{'postback'}->{'data'};
