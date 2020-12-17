@@ -89,7 +89,23 @@ foreach ($clients->parseEvents() as $event) {
                         ]
                     ];
                     replyMessage($clients, $event['replyToken'], $messages);
-                    break;
+                    foreach ($clients->parseEvents() as $event) {
+                        if ($event['type'] == 'message') {
+                            $message = $event['message'];
+                            switch ($message['type']) {
+                                case 'text':
+                                    if ($message['text'] == '映画を見る') {
+                                         $clients->replyMessage([
+                                             'replyToken' => $event['replyToken'],
+                                             'messages' => [
+                                                 ['type' => 'text', 'text' => "テスト"]
+                                             ]
+                                        ]);
+                                        break;
+                                    }
+                            }
+                        }
+                    }
                 } elseif ($message['text'] == "カップル" || $message['text'] == "二人" || $message['text'] == "彼氏" || $message['text'] == "彼女") {
                     $messages = [
                         [
