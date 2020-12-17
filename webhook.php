@@ -173,18 +173,22 @@ foreach ($clients->parseEvents() as $event) {
                 ];
                 replyMessage($clients, $event['replyToken'], $messages);
         }
-    } elseif ($event['type'] == 'postback'){
-        $postback = $event['type']->{'postback'}->{'data'};
-            // 日にち選択時
-            $message = array(
-                'type' => 'text',
-                'text' => $postback
-            );
-            replyMessage($clients, $event['replyToken'], $messages);
-            break;
     } else {
         error_log('Unsupported event type:' . $event['type']);
         break;
+    }
+    foreach ($clients->parseEvents() as $event) {
+        if ($event['type'] == 'postback') {
+            $postback = $event['postback'];
+                if ($postback == 'add&itemid=123') {
+                    $messages = array(
+                        'type' => 'text',
+                        'text' => 'テスト' 
+                    );
+                replyMessage($clients, $event['replyToken'], $messages);
+                break;
+            }
+        }
     }
 };
 ?>
