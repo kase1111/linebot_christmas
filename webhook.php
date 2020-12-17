@@ -120,7 +120,9 @@ foreach ($clients->parseEvents() as $event) {
                             ]
                         ]
                     ];
+                    if ($messages['template']['actions']['displayText'] == 'プレゼントを送る' ) {
                     replyMessage($clients, $event['replyToken'], $messages);
+                    }
                     break;
                 } elseif ($message['text'] == "家族") {
                     $messages = [
