@@ -180,7 +180,7 @@ foreach ($clients->parseEvents() as $event) {
     foreach ($clients->parseEvents() as $event) {
         if ($event['type'] == 'postback') {
             $postback = $event['postback'];
-                if ($postback == 'add&itemid=123') {
+                if ($postback == 'action=add&itemid=123') {
                     $messages = array(
                         'type' => 'text',
                         'text' => 'テスト' 
