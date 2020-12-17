@@ -53,7 +53,7 @@ function replyMessage($clients, $reply_token, $messages) {
         'messages' => $messages
     ]);
 }
-//foreach ($clients->parseEvents() as $event) {
+foreach ($clients->parseEvents() as $event) {
     if ($event['type'] == 'message') {
         $message = $event['message'];
         switch ($message['type']) {
@@ -181,8 +181,10 @@ function replyMessage($clients, $reply_token, $messages) {
                 'text' => $postback
             );
             replyMessage($clients, $event['replyToken'], $messages);
+            break;
     } else {
         error_log('Unsupported event type:' . $event['type']);
-    };
-//};
+        break;
+    }
+};
 ?>
