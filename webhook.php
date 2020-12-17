@@ -89,23 +89,7 @@ foreach ($clients->parseEvents() as $event) {
                         ]
                     ];
                     replyMessage($clients, $event['replyToken'], $messages);
-                    foreach ($clients->parseEvents() as $event) {
-                        if ($event['type'] == 'message') {
-                            $message = $event['message'];
-                            switch ($message['type']) {
-                                case 'text':
-                                    if ($message['text'] == '映画を見る') {
-                                         $clients->replyMessage([
-                                             'replyToken' => $event['replyToken'],
-                                             'messages' => [
-                                                 ['type' => 'text', 'text' => "テスト"]
-                                             ]
-                                        ]);
-                                        break;
-                                    }
-                            }
-                        }
-                    }
+                    break;
                 } elseif ($message['text'] == "カップル" || $message['text'] == "二人" || $message['text'] == "彼氏" || $message['text'] == "彼女") {
                     $messages = [
                         [
@@ -189,6 +173,16 @@ foreach ($clients->parseEvents() as $event) {
                 ];
                 replyMessage($clients, $event['replyToken'], $messages);
                 break;
+        }
+    } elseif ($event['type'] == 'postback'){
+        $postback = $event['type']->{'postback'}->{'data'};
+        if($postback === 'action=add&itemid=123') {
+            // 日にち選択時
+            $message = array(
+                'type' => 'text',
+                'text' => '予約を承りました。'
+            );
+
         }
     } else {
         error_log('Unsupported event type:' . $event['type']);
