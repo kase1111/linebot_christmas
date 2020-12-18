@@ -173,22 +173,24 @@ foreach ($clients->parseEvents() as $event) {
                 ];
                 replyMessage($clients, $event['replyToken'], $messages);
         }
+    } elseif ($event['type'] == 'postback') {
+        print_r('i');
     } else {
         error_log('Unsupported event type:' . $event['type']);
         break;
     }
-    foreach ($clients->parseEvents() as $event) {
-        if ($event['type'] == 'postback') {
-            $postback = $event['postback'];
-                if ($postback['data'] == 'action=add&itemid=123') {
-                    $messages = array(
-                        'type' => 'text',
-                        'text' => 'テスト' 
-                    );
-                replyMessage($clients, $event['replyToken'], $messages);
-                break;
-            }
-        }
-    }
+    // foreach ($clients->parseEvents() as $event) {
+    //     if ($event['type'] == 'postback') {
+    //         $postback = $event['postback'];
+    //             if ($postback['data'] == 'action=add&itemid=123') {
+    //                 $messages = array(
+    //                     'type' => 'text',
+    //                     'text' => 'テスト' 
+    //                 );
+    //             replyMessage($clients, $event['replyToken'], $messages);
+    //             break;
+    //         }
+    //     }
+    // }
 };
 ?>
