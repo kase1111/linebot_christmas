@@ -177,8 +177,9 @@ foreach ($clients->parseEvents() as $event) {
                 replyMessage($clients, $event['replyToken'], $messages);
         }
     } elseif ($event['postback']['data'] == 'movie') {
-        $x = rand(1,100);
-            $title = $movies[$x][1];
+        $x = mt_rand(1,100);
+        $num = shuffle($x);
+            $title = $movies[$num][1];
                     $messages = [
                         [
                             "type" => "template",
@@ -200,7 +201,7 @@ foreach ($clients->parseEvents() as $event) {
                                     ],
                                     [
                                         "type" => "postback",
-                                        "label" => $movies[$x][3],
+                                        "label" => $movies[$x][4],
                                         "data" => "present",
                                         "displayText" => "プレゼントを送る"
                                     ]
@@ -214,13 +215,13 @@ foreach ($clients->parseEvents() as $event) {
                                 "actions" => [
                                     [
                                         "type" => "postback",
-                                        "label" => "映画を見る",
+                                        "label" => $movies[$x][3],
                                         "data" => "movie",
                                         "displayText" => "映画を見る"
                                     ],
                                     [
                                         "type" => "postback",
-                                        "label" => "プレゼントを送る",
+                                        "label" => $movies[$x][4],
                                         "data" => "present",
                                         "displayText" => "プレゼントを送る"
                                     ]
