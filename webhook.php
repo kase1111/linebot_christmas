@@ -41,9 +41,12 @@ function getClient()
 $client = getClient();
 $service = new Google_Service_Sheets($client);
 $spreadsheetId = '1RObht-7A9jEDU_a8z_8tcboIEVi-aWD0Wjacih3G1ZM';
-$range = 'couple!A2:H112';
-$response = $service->spreadsheets_values->get($spreadsheetId, $range);
-$values = $response->getValues();
+$illrange = 'couple!A2:H112';
+$illumination = $service->spreadsheets_values->get($spreadsheetId, $illrange);
+$ills = $illumination->getValues();
+$movierange = 'movie!A2:I102';
+$movie = $service->spreadsheets_values->get($spreadsheetId, $movierange);
+$movies = $movie->getValues();
 $channelAccessToken = 'vmHip9gH5zZrT3EDp5FXM2P4bum8MrrsJC9LHmgwIMDvzaF23dtJ57u1wyTcT86mnUM4Bi3QdvekJCO/s9njAnbv/BRGc/D6utFsYhvM3RnDSW3EzMu+3jAqWhyvtgsL/YYrXN8Gc5jnFGgk6ke8/QdB04t89/1O/w1cDnyilFU=';
 $channelSecret = '1d45ac84e0c412bb43fd023ecaa88ed0';
 $clients = new LINEBotTiny($channelAccessToken, $channelSecret);
@@ -189,7 +192,7 @@ foreach ($clients->parseEvents() as $event) {
                                 "actions" => [
                                     [
                                         "type" => "postback",
-                                        "label" => "映画を見る",
+                                        "label" => $movies[0][0],
                                         "data" => "movie",
                                         "displayText" => "映画を見る"
                                     ],
