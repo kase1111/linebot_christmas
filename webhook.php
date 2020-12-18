@@ -174,7 +174,15 @@ foreach ($clients->parseEvents() as $event) {
                 replyMessage($clients, $event['replyToken'], $messages);
         }
     } elseif ($event['type'] == 'postback') {
-        print_r('i');
+                $messages = [
+                    [
+                        'type' => 'text',
+                        'text' => '位置情報を送ってください',
+
+                    ]
+                ];
+       replyMessage($clients, $event['replyToken'], $messages);
+       break;
     } else {
         error_log('Unsupported event type:' . $event['type']);
         break;
