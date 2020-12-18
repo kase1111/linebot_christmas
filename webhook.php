@@ -178,8 +178,7 @@ foreach ($clients->parseEvents() as $event) {
         }
     } elseif ($event['postback']['data'] == 'movie') {
         $x = mt_rand(1,100);
-        $num = shuffle($x);
-            $title = $movies[$num][1];
+            $title = $movies[$x][1];
                     $messages = [
                         [
                             "type" => "template",
