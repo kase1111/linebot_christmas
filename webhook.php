@@ -174,13 +174,14 @@ foreach ($clients->parseEvents() as $event) {
                 replyMessage($clients, $event['replyToken'], $messages);
         }
     } elseif ($event['type'] == 'postback') {
-                $messages = [
-                    [
-                        'type' => 'text',
-                        'text' => '位置情報を送ってください',
+        $message = $event['type'];
+        $messages = [
+            [
+                'type' => 'text',
+                'text' => $message,
 
-                    ]
-                ];
+            ]
+        ];
        replyMessage($clients, $event['replyToken'], $messages);
        break;
     } else {
