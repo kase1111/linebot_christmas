@@ -209,7 +209,7 @@ foreach ($clients->parseEvents() as $event) {
                                 [
                                 "thumbnailImageUrl" => "https://56emon-cafe.com/wp-content/uploads/2018/11/happychristmas-e1542467819826.jpg",
                                 "imageBackgroundColor" => "#FFFFFF",
-                                "title" => $title,
+                                "title" => $movies[$x[2]][1],
                                 "text" => "Please select",
                                 "actions" => [
                                     [
