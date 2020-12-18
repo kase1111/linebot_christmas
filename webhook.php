@@ -177,6 +177,8 @@ foreach ($clients->parseEvents() as $event) {
                 replyMessage($clients, $event['replyToken'], $messages);
         }
     } elseif ($event['postback']['data'] == 'movie') {
+        $x = rand(1,100);
+            $title = $movies[$x][1];
                     $messages = [
                         [
                             "type" => "template",
@@ -187,18 +189,18 @@ foreach ($clients->parseEvents() as $event) {
                                 [
                                 "thumbnailImageUrl" => "https://56emon-cafe.com/wp-content/uploads/2018/11/happychristmas-e1542467819826.jpg",
                                 "imageBackgroundColor" => "#FFFFFF",
-                                "title" => "クリスマスの過ごしかた",
+                                "title" => $title,
                                 "text" => "Please select",
                                 "actions" => [
                                     [
                                         "type" => "postback",
-                                        "label" => $movies[0][0],
+                                        "label" => $movies[$x][3],
                                         "data" => "movie",
                                         "displayText" => "映画を見る"
                                     ],
                                     [
                                         "type" => "postback",
-                                        "label" => "プレゼントを送る",
+                                        "label" => $movies[$x][3],
                                         "data" => "present",
                                         "displayText" => "プレゼントを送る"
                                     ]
@@ -207,7 +209,7 @@ foreach ($clients->parseEvents() as $event) {
                                 [
                                 "thumbnailImageUrl" => "https://56emon-cafe.com/wp-content/uploads/2018/11/happychristmas-e1542467819826.jpg",
                                 "imageBackgroundColor" => "#FFFFFF",
-                                "title" => "クリスマスの過ごしかた",
+                                "title" => $title,
                                 "text" => "Please select",
                                 "actions" => [
                                     [
