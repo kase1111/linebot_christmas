@@ -139,13 +139,13 @@ foreach ($clients->parseEvents() as $event) {
                                     [
                                         "type" => "postback",
                                         "label" => "映画を見る",
-                                        "data" => "action=add&itemid=123",
+                                        "data" => "movie",
                                         "displayText" => "映画を見る"
                                     ],
                                     [
                                         "type" => "postback",
                                         "label" => "プレゼントを送る",
-                                        "data" => "action=add&itemid=123",
+                                        "data" => "present",
                                         "displayText" => "プレゼントを送る"
                                     ]
                                 ]
@@ -173,12 +173,21 @@ foreach ($clients->parseEvents() as $event) {
                 ];
                 replyMessage($clients, $event['replyToken'], $messages);
         }
-    } elseif ($event['type'] == 'postback') {
-        $data = $event['postback']['data'];
+    } elseif ($event['postback']['data'] == 'movie') {
         $messages = [
             [
                 'type' => 'text',
-                'text' => $data,
+                'text' => '映画',
+
+            ]
+        ];
+       replyMessage($clients, $event['replyToken'], $messages);
+       break;
+    } elseif ($event['postback']['data'] == 'present') {
+        $messages = [
+            [
+                'type' => 'text',
+                'text' => 'プレゼント',
 
             ]
         ];
