@@ -174,13 +174,39 @@ foreach ($clients->parseEvents() as $event) {
                 replyMessage($clients, $event['replyToken'], $messages);
         }
     } elseif ($event['postback']['data'] == 'movie') {
-        $messages = [
-            [
-                'type' => 'text',
-                'text' => '映画',
-
-            ]
-        ];
+                $messages = [
+                    [
+                        "type" => "template",
+                        "altText" => "This is a carousel template",
+                        "template" => [
+                            "columns" => [
+                                [
+                                  "thumbnailImageUrl" => "https://example.com/bot/images/item1.jpg",
+                                  "imageBackgroundColor" => "#FFFFFF",
+                                  "title" => "this is menu",
+                                  "text" => "description",
+                                  "actions" => [
+                                      [
+                                          "type" => "postback",
+                                          "label" => "Buy",
+                                          "data" => "action=buy&itemid=111"
+                                      ],
+                                      [
+                                          "type" => "postback",
+                                          "label" => "Add to cart",
+                                          "data" => "action=add&itemid=111"
+                                      ],
+                                      [
+                                          "type" => "uri",
+                                          "label" => "Add to cart",
+                                          "data" => "http://example.com/page/111"
+                                      ],
+                                  ]
+                                ]
+                            ]
+                        ]
+                    ]
+               ];
        replyMessage($clients, $event['replyToken'], $messages);
        break;
     } elseif ($event['postback']['data'] == 'present') {
@@ -197,7 +223,7 @@ foreach ($clients->parseEvents() as $event) {
         error_log('Unsupported event type:' . $event['type']);
         break;
     }
-    // foreach ($clients->parseEvents() as $event) {
+    // foreach ($clients->parseEvents() as $event) [
     //     if ($event['type'] == 'postback') {
     //         $postback = $event['postback'];
     //             if ($postback['data'] == 'action=add&itemid=123') {
