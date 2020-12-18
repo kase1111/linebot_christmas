@@ -177,8 +177,9 @@ foreach ($clients->parseEvents() as $event) {
                 replyMessage($clients, $event['replyToken'], $messages);
         }
     } elseif ($event['postback']['data'] == 'movie') {
-        $x = mt_rand(1,100);
-            $title = $movies[$x][1];
+        $x = range(1,100);
+        $rand = shuffle($x);
+            $title = $movies[$rand[1]][1];
                     $messages = [
                         [
                             "type" => "template",
@@ -194,13 +195,13 @@ foreach ($clients->parseEvents() as $event) {
                                 "actions" => [
                                     [
                                         "type" => "postback",
-                                        "label" => $movies[$x][3],
+                                        "label" => $movies[$rand[1]][3],
                                         "data" => "movie",
                                         "displayText" => "映画を見る"
                                     ],
                                     [
                                         "type" => "postback",
-                                        "label" => $movies[$x][4],
+                                        "label" => $movies[$rand[1]][5],
                                         "data" => "present",
                                         "displayText" => "プレゼントを送る"
                                     ]
@@ -214,13 +215,13 @@ foreach ($clients->parseEvents() as $event) {
                                 "actions" => [
                                     [
                                         "type" => "postback",
-                                        "label" => $movies[$x][3],
+                                        "label" => $movies[$rand[2]][3],
                                         "data" => "movie",
                                         "displayText" => "映画を見る"
                                     ],
                                     [
                                         "type" => "postback",
-                                        "label" => $movies[$x][4],
+                                        "label" => $movies[$rand[2]][5],
                                         "data" => "present",
                                         "displayText" => "プレゼントを送る"
                                     ]
