@@ -179,6 +179,7 @@ foreach ($clients->parseEvents() as $event) {
                         "type" => "template",
                         "altText" => "This is a carousel template",
                         "template" => [
+                            'type' => 'carousel',
                             "columns" => [
                                 [
                                   "thumbnailImageUrl" => "https://example.com/bot/images/item1.jpg",
