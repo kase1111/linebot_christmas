@@ -174,40 +174,35 @@ foreach ($clients->parseEvents() as $event) {
                 replyMessage($clients, $event['replyToken'], $messages);
         }
     } elseif ($event['postback']['data'] == 'movie') {
-                $messages = [
-                    [
-                        "type" => "template",
-                        "altText" => "This is a carousel template",
-                        "template" => [
-                            'type' => 'carousel',
-                            "columns" => [
-                                [
-                                  "thumbnailImageUrl" => "https://example.com/bot/images/item1.jpg",
-                                  "imageBackgroundColor" => "#FFFFFF",
-                                  "title" => "this is menu",
-                                  "text" => "description",
-                                  "actions" => [
-                                      [
-                                          "type" => "postback",
-                                          "label" => "Buy",
-                                          "data" => "action=buy&itemid=111"
-                                      ],
-                                      [
-                                          "type" => "postback",
-                                          "label" => "Add to cart",
-                                          "data" => "action=add&itemid=111"
-                                      ],
-                                      [
-                                          "type" => "uri",
-                                          "label" => "Add to cart",
-                                          "data" => "http://example.com/page/111"
-                                      ],
-                                  ]
+                    $messages = [
+                        [
+                            "type" => "template",
+                            "altText" => "This is a buttons template",
+                            "template" => [
+                                "type" => "buttons",
+                                "thumbnailImageUrl" => "https://56emon-cafe.com/wp-content/uploads/2018/11/happychristmas-e1542467819826.jpg",
+                                "imageAspectRatio" => "rectangle",
+                                "imageSize" => "cover",
+                                "imageBackgroundColor" => "#FFFFFF",
+                                "title" => "クリスマスの過ごしかた",
+                                "text" => "Please select",
+                                "actions" => [
+                                    [
+                                        "type" => "postback",
+                                        "label" => "映画を見る",
+                                        "data" => "movie",
+                                        "displayText" => "映画を見る"
+                                    ],
+                                    [
+                                        "type" => "postback",
+                                        "label" => "プレゼントを送る",
+                                        "data" => "present",
+                                        "displayText" => "プレゼントを送る"
+                                    ]
                                 ]
                             ]
                         ]
-                    ]
-               ];
+                    ];
        replyMessage($clients, $event['replyToken'], $messages);
        break;
     } elseif ($event['postback']['data'] == 'present') {
