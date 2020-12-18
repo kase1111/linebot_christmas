@@ -179,10 +179,10 @@ foreach ($clients->parseEvents() as $event) {
                             "type" => "template",
                             "altText" => "This is a buttons template",
                             "template" => [
-                                "type" => "buttons",
+                                "type" => "carousel",
+                                "columns" => [
+                                [
                                 "thumbnailImageUrl" => "https://56emon-cafe.com/wp-content/uploads/2018/11/happychristmas-e1542467819826.jpg",
-                                "imageAspectRatio" => "rectangle",
-                                "imageSize" => "cover",
                                 "imageBackgroundColor" => "#FFFFFF",
                                 "title" => "クリスマスの過ごしかた",
                                 "text" => "Please select",
@@ -200,9 +200,31 @@ foreach ($clients->parseEvents() as $event) {
                                         "displayText" => "プレゼントを送る"
                                     ]
                                 ]
+                                    ],
+                                [
+                                "thumbnailImageUrl" => "https://56emon-cafe.com/wp-content/uploads/2018/11/happychristmas-e1542467819826.jpg",
+                                "imageBackgroundColor" => "#FFFFFF",
+                                "title" => "クリスマスの過ごしかた",
+                                "text" => "Please select",
+                                "actions" => [
+                                    [
+                                        "type" => "postback",
+                                        "label" => "映画を見る",
+                                        "data" => "movie",
+                                        "displayText" => "映画を見る"
+                                    ],
+                                    [
+                                        "type" => "postback",
+                                        "label" => "プレゼントを送る",
+                                        "data" => "present",
+                                        "displayText" => "プレゼントを送る"
+                                    ]
+                                ]
+                                ]
                             ]
                         ]
-                    ];
+                                    ]
+                                ];
        replyMessage($clients, $event['replyToken'], $messages);
        break;
     } elseif ($event['postback']['data'] == 'present') {
