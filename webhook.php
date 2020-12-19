@@ -190,7 +190,7 @@ foreach ($clients->parseEvents() as $event) {
                                 "thumbnailImageUrl" => "https://56emon-cafe.com/wp-content/uploads/2018/11/happychristmas-e1542467819826.jpg",
                                 "imageBackgroundColor" => "#FFFFFF",
                                 "title" => $movies[$x[1]][1],
-                                "text" => "Please select",
+                                "text" => $movies[$x[1]][3],
                                 "actions" => [
                                     [
                                         "type" => "postback",
@@ -203,6 +203,11 @@ foreach ($clients->parseEvents() as $event) {
                                         "label" => $movies[$x[1]][5],
                                         "data" => "present",
                                         "displayText" => "プレゼントを送る"
+                                    ],
+                                    [
+                                        "type" => "uri",
+                                        "label" => 'リンクに飛ぶ',
+                                        "uri" => $movies[$x[1]][7]
                                     ]
                                 ]
                                     ],
@@ -223,6 +228,11 @@ foreach ($clients->parseEvents() as $event) {
                                         "label" => $movies[$x[2]][5],
                                         "data" => "present",
                                         "displayText" => "プレゼントを送る"
+                                    ],
+                                    [
+                                        "type" => "uri",
+                                        "label" => 'リンクに飛ぶ',
+                                        "uri" => $movies[$x[2]][7]
                                     ]
                                 ]
                                 ]
