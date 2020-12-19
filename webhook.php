@@ -190,7 +190,7 @@ foreach ($clients->parseEvents() as $event) {
                                 "thumbnailImageUrl" => "https://56emon-cafe.com/wp-content/uploads/2018/11/happychristmas-e1542467819826.jpg",
                                 "imageBackgroundColor" => "#FFFFFF",
                                 "title" => $movies[$x[1]][1],
-                                "text" => $movies[$x[1]][3],
+                                "text" => $movies[$x[1]][8],
                                 "actions" => [
                                     [
                                         "type" => "postback",
@@ -215,7 +215,7 @@ foreach ($clients->parseEvents() as $event) {
                                 "thumbnailImageUrl" => "https://56emon-cafe.com/wp-content/uploads/2018/11/happychristmas-e1542467819826.jpg",
                                 "imageBackgroundColor" => "#FFFFFF",
                                 "title" => $movies[$x[2]][1],
-                                "text" => "Please select",
+                                "text" => $movies[$x[2]][8],
                                 "actions" => [
                                     [
                                         "type" => "postback",
